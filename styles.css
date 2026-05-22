@@ -1,8 +1,121 @@
-.main {
+body {
     background-color: #0E1117;
     color: white;
 }
 
-.stButton>button {
-    border-radius: 10px;
+.main {
+    background: linear-gradient(to bottom right, #0E1117, #111827);
+    color: white;
+}
+
+section[data-testid="stSidebar"] {
+    background-color: #111827;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+img {
+    border-radius: 50%;
+    border: 5px solid #60A5FA;
+    box-shadow: 0px 0px 25px rgba(96,165,250,0.5);
+}
+
+.hero {
+    padding: 80px;
+    border-radius: 25px;
+    text-align: center;
+    background: linear-gradient(135deg, #141E30, #243B55);
+    margin-bottom: 40px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+.hero h1 {
+    font-size: 64px;
+    margin-bottom: 10px;
+}
+
+.hero h3 {
+    color: #60A5FA;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #D1D5DB;
+}
+
+.metric-card {
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+
+.glass-card {
+    background: rgba(255,255,255,0.06);
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    margin-bottom: 25px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.timeline-card {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    border-left: 5px solid #60A5FA;
+    transition: 0.3s ease;
+}
+
+.timeline-card:hover {
+    transform: scale(1.01);
+}
+
+.project-card {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 20px;
+    min-height: 250px;
+    transition: 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+}
+
+.tech-stack {
+    margin-top: 20px;
+    color: #60A5FA;
+    font-weight: bold;
+}
+
+.badge {
+    display: inline-block;
+    padding: 10px 18px;
+    margin: 8px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #2563EB, #7C3AED);
+    color: white;
+    font-weight: bold;
+}
+
+.section-title {
+    font-size: 42px;
+    margin-bottom: 30px;
+}
+
+.stPlotlyChart {
+    background-color: transparent !important;
 }
