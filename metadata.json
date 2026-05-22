@@ -1,0 +1,6 @@
+{
+  "name": "Streamlit Portfolio",
+  "description": "An interactive Streamlit-style portfolio application with a side-by-side layout, dynamic widgets, active theme toggles, and an integrated AI assistant chatbot.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
