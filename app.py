@@ -11,18 +11,21 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------------- CSS ----------------
+# ---------------- LOAD CSS ----------------
 with open("styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # ---------------- SIDEBAR ----------------
 with st.sidebar:
 
+    st.image("profile.jpg", width=160)
+
     st.markdown("""
-    <div class="sidebar-profile">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" width="140">
-        <h2>Akash Kumar</h2>
-        <p>Senior Backend Engineer</p>
+    <div style='text-align:center; margin-bottom:30px;'>
+        <h2 style='margin-bottom:0;'>Akash Kumar</h2>
+        <p style='color:#94A3B8;'>
+            Senior Backend Engineer
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -50,11 +53,18 @@ with st.sidebar:
 # ---------------- HOME ----------------
 if selected == "Home":
 
-    st.markdown("""
-    <div class="hero-section">
+    left, right = st.columns([1, 2])
 
-        <div class="hero-left">
+    with left:
+        st.image("profile.jpg", width=280)
+
+    with right:
+
+        st.markdown("""
+        <div class="hero-box">
+
             <h4>HELLO 👋</h4>
+
             <h1>I'm Akash Kumar</h1>
 
             <h3>
@@ -63,76 +73,87 @@ if selected == "Home":
 
             <p>
                 Senior Backend Engineer with 12+ years of experience
-                designing scalable distributed systems across fintech,
+                building scalable backend systems across fintech,
                 telecom, retail, EV, gaming, and e-commerce domains.
             </p>
 
-            <div class="hero-buttons">
-                <a href="https://linkedin.com/in/kumarakash92" target="_blank">
-                    <button class="custom-btn">LinkedIn</button>
-                </a>
-
-                <a href="mailto:kumarakash2009@gmail.com">
-                    <button class="custom-btn-secondary">Contact Me</button>
-                </a>
-            </div>
         </div>
+        """, unsafe_allow_html=True)
 
-        <div class="hero-right">
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
-        </div>
+        c1, c2 = st.columns(2)
 
-    </div>
-    """, unsafe_allow_html=True)
+        with c1:
+            st.link_button(
+                "LinkedIn",
+                "https://linkedin.com/in/kumarakash92"
+            )
 
-    st.markdown("<br>", unsafe_allow_html=True)
+        with c2:
+            st.link_button(
+                "Contact Me",
+                "mailto:kumarakash2009@gmail.com"
+            )
+
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
     # METRICS
-    col1, col2, col3 = st.columns(3)
+    m1, m2, m3 = st.columns(3)
 
-    metrics = [
-        ("12+", "Years Experience"),
-        ("1M+", "Events / Minute"),
-        ("99.9%", "System Uptime")
-    ]
+    with m1:
+        st.markdown("""
+        <div class="metric-card">
+            <h1>12+</h1>
+            <p>Years Experience</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-    cols = [col1, col2, col3]
+    with m2:
+        st.markdown("""
+        <div class="metric-card">
+            <h1>1M+</h1>
+            <p>Events / Minute</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-    for idx, col in enumerate(cols):
-        with col:
-            st.markdown(f"""
-            <div class="metric-card">
-                <h1>{metrics[idx][0]}</h1>
-                <p>{metrics[idx][1]}</p>
-            </div>
-            """, unsafe_allow_html=True)
+    with m3:
+        st.markdown("""
+        <div class="metric-card">
+            <h1>99.9%</h1>
+            <p>System Uptime</p>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("<br><br>", unsafe_allow_html=True)
 
     # ABOUT
     st.markdown("""
     <div class="glass-card">
-        <h2>About Me</h2>
 
-        <p>
-        Backend Engineer specializing in:
-        </p>
+    <h2>About Me</h2>
 
-        <ul>
-            <li>Java & Spring Boot</li>
-            <li>Kafka & Event-Driven Systems</li>
-            <li>Distributed Systems</li>
-            <li>Cloud-Native Architecture</li>
-            <li>Platform Engineering</li>
-            <li>AI-Assisted Engineering Workflows</li>
-        </ul>
+    <p>
+    Backend Engineer specializing in:
+    </p>
+
+    <ul>
+        <li>Java & Spring Boot</li>
+        <li>Kafka & Event-Driven Systems</li>
+        <li>Distributed Systems</li>
+        <li>Cloud-Native Architecture</li>
+        <li>Platform Engineering</li>
+        <li>AI-Assisted Engineering Workflows</li>
+    </ul>
+
     </div>
     """, unsafe_allow_html=True)
 
 # ---------------- EXPERIENCE ----------------
 elif selected == "Experience":
 
-    st.markdown("<h1 class='section-title'>Experience</h1>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 class='section-title'>Experience</h1>",
+        unsafe_allow_html=True
+    )
 
     experiences = [
         {
@@ -170,22 +191,32 @@ elif selected == "Experience":
     ]
 
     for exp in experiences:
+
         st.markdown(f"""
         <div class="timeline-card">
+
             <h2>{exp['company']}</h2>
+
             <h4>{exp['role']}</h4>
-            <h5>{exp['duration']}</h5>
+
+            <p style="color:#94A3B8;">
+                {exp['duration']}
+            </p>
 
             <ul>
                 {''.join([f"<li>{d}</li>" for d in exp['details']])}
             </ul>
+
         </div>
         """, unsafe_allow_html=True)
 
 # ---------------- PROJECTS ----------------
 elif selected == "Projects":
 
-    st.markdown("<h1 class='section-title'>Projects</h1>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 class='section-title'>Projects</h1>",
+        unsafe_allow_html=True
+    )
 
     projects = [
         {
@@ -208,22 +239,30 @@ elif selected == "Projects":
     cols = st.columns(3)
 
     for idx, project in enumerate(projects):
+
         with cols[idx]:
+
             st.markdown(f"""
             <div class="project-card">
+
                 <h3>{project['title']}</h3>
+
                 <p>{project['desc']}</p>
 
                 <div class="tech-stack">
                     {project['tech']}
                 </div>
+
             </div>
             """, unsafe_allow_html=True)
 
 # ---------------- SKILLS ----------------
 elif selected == "Skills":
 
-    st.markdown("<h1 class='section-title'>Skills</h1>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 class='section-title'>Skills</h1>",
+        unsafe_allow_html=True
+    )
 
     skills = [
         "Java",
@@ -281,10 +320,14 @@ elif selected == "Skills":
 # ---------------- AI/LLM ----------------
 elif selected == "AI/LLM":
 
-    st.markdown("<h1 class='section-title'>AI & LLM Engineering</h1>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 class='section-title'>AI & LLM Engineering</h1>",
+        unsafe_allow_html=True
+    )
 
     st.markdown("""
     <div class="glass-card">
+
         <ul>
             <li>LLM-assisted log summarization</li>
             <li>Semantic search workflows</li>
@@ -293,16 +336,21 @@ elif selected == "AI/LLM":
             <li>Observability intelligence</li>
             <li>Engineering productivity tooling</li>
         </ul>
+
     </div>
     """, unsafe_allow_html=True)
 
 # ---------------- CONTACT ----------------
 elif selected == "Contact":
 
-    st.markdown("<h1 class='section-title'>Contact</h1>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 class='section-title'>Contact</h1>",
+        unsafe_allow_html=True
+    )
 
     st.markdown("""
     <div class="glass-card">
+
         <h3>Let's Connect</h3>
 
         <p>📧 kumarakash2009@gmail.com</p>
@@ -310,5 +358,6 @@ elif selected == "Contact":
         <p>🔗 linkedin.com/in/kumarakash92</p>
 
         <p>📍 Bengaluru, India</p>
+
     </div>
     """, unsafe_allow_html=True)
