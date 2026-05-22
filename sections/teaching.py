@@ -8,9 +8,7 @@ from components.card import render_card
 def render_teaching() -> None:
     st.markdown('<div class="section-intro">', unsafe_allow_html=True)
     st.markdown(
-        '<p class="section-lede">I teach applied AI to working professionals and university '
-        'students. Over 700 hours of live instruction delivered, 100+ engineers mentored 1:1, '
-        'and an active instructor at Springboard and REVA University.</p>',
+        '<p class="section-lede"></p>',
         unsafe_allow_html=True,
     )
     st.markdown('</div>', unsafe_allow_html=True)
