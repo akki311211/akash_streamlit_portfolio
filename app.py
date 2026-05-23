@@ -6,18 +6,16 @@ Edit content in data/*.py
 
 from pathlib import Path
 import streamlit as st
-from sections.chat import render_chat_inline
 
 from data.profile import PROFILE
 from sections.hero import render_hero
 from sections.industry import render_industry
 from sections.education import render_education
 from sections.teaching import render_teaching
-# from sections.achievements import render_achievements
-# from sections.gallery import render_gallery
 from sections.skills import render_skills
 from sections.contact import render_contact
 from sections.chat import render_chat_inline
+from sections.voice_assistant_inline import render_voice_assistant_inline
 from utils.images import ensure_placeholders
 
 
@@ -52,7 +50,7 @@ st.markdown(
 # PAGE LAYOUT
 # ═══════════════════════════════════════════════════════════════
 
-# 1. Hero (photo, name, summary, stats, resume + chat toggle buttons)
+# 1. Hero
 render_hero(PROFILE)
 
 # 2. Inline chat panel — appears right below hero when toggled
@@ -60,9 +58,16 @@ if st.session_state.get("chat_open", False):
     st.markdown('<div class="section-spacer"></div>', unsafe_allow_html=True)
     render_chat_inline()
 
-st.markdown('<div class="section-spacer"></div>', unsafe_allow_html=True)
+# 3. Inline voice assistant panel — appears right below hero when toggled
+if st.session_state.get("voice_open", False):
+    st.markdown('<div class="section-spacer"></div>', unsafe_allow_html=True)
+    render_voice_assistant_inline()
 
-# 3. Section eyebrow label
+# Only add spacer before tabs if no panel is open (panels bring their own spacing)
+if not st.session_state.get("chat_open", False) and not st.session_state.get("voice_open", False):
+    st.markdown('<div class="section-spacer"></div>', unsafe_allow_html=True)
+
+# 4. Section eyebrow label
 st.markdown(
     '<div class="tabs-section-label">'
     '<span class="tabs-section-eyebrow">EXPLORE MY BACKGROUND</span>'
@@ -70,16 +75,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# # 4. Main tabs
-# tab_industry, tab_education, tab_teaching, tab_achievements, tab_gallery = st.tabs([
-#     "💼  Industry Experience",
-#     "🎓  Education",
-#     "👨‍🏫  Teaching & Mentoring",
-#      "🏆  Academic Achievements",
-#      "📸  Gallery",
-# ])
-
-# 4. Main tabs
+# 5. Main tabs
 tab_industry, tab_education, tab_teaching = st.tabs([
     "💼  Industry Experience",
     "🎓  Education",
@@ -95,16 +91,10 @@ with tab_education:
 with tab_teaching:
     render_teaching()
 
-# with tab_achievements:
-#     render_achievements()
-#
-# with tab_gallery:
-#     render_gallery()
-
-# 5. Skills
+# 6. Skills
 st.markdown('<div class="section-spacer"></div>', unsafe_allow_html=True)
 render_skills()
 
-# 6. Contact (no chat placeholder — chat is in hero now)
+# 7. Contact
 st.markdown('<div class="section-spacer"></div>', unsafe_allow_html=True)
 render_contact(PROFILE)
