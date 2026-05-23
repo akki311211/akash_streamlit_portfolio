@@ -29,7 +29,6 @@ def render_hero(profile: dict) -> None:
                     key="resume_dl_btn",
                 )
         else:
-            # Placeholder — disappears once PDF is dropped in assets/
             st.markdown(
                 '<div class="resume-missing-note">📄 Resume PDF not found.<br>'
                 'Drop <code>Akash_Kumar_Resume_IC.pdf</code><br>into <code>assets/</code> to enable.</div>',
@@ -38,12 +37,28 @@ def render_hero(profile: dict) -> None:
 
         st.markdown('<div style="height:0.4rem"></div>', unsafe_allow_html=True)
 
-        # ── Chat toggle button ── visible, prominent
+        # ── Chat toggle button ──
         chat_open = st.session_state.get("chat_open", False)
-        btn_label = "✕  Close Chat" if chat_open else "💬  AI Chat with Akash"
-        if st.button(btn_label, use_container_width=True, key="chat_toggle_btn",
+        chat_label = "✕  Close Chat" if chat_open else "💬  AI Chat with Akash"
+        if st.button(chat_label, use_container_width=True, key="chat_toggle_btn",
                      type="primary" if not chat_open else "secondary"):
             st.session_state["chat_open"] = not chat_open
+            # Close voice if chat opens
+            if not chat_open:
+                st.session_state["voice_open"] = False
+            st.rerun()
+
+        st.markdown('<div style="height:0.3rem"></div>', unsafe_allow_html=True)
+
+        # ── Voice Assistant toggle button ──
+        voice_open = st.session_state.get("voice_open", False)
+        voice_label = "✕  Close Voice Assistant" if voice_open else "🎙️  Voice Assistant"
+        if st.button(voice_label, use_container_width=True, key="voice_toggle_btn",
+                     type="primary" if not voice_open else "secondary"):
+            st.session_state["voice_open"] = not voice_open
+            # Close chat if voice opens
+            if not voice_open:
+                st.session_state["chat_open"] = False
             st.rerun()
 
     # ── Info column ─────────────────────────────────────────

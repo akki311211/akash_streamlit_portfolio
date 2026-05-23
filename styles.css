@@ -63,7 +63,7 @@ html, body {
 /* Streamlit container — stretch to use full page width */
 .block-container {
   max-width: 1440px !important;
-  padding-top: 2.4rem !important;
+  padding-top: 1rem !important;
   padding-bottom: 4rem !important;
   padding-left: 3rem !important;
   padding-right: 3rem !important;
@@ -232,8 +232,8 @@ html, body {
 /* ============================================================
    STATS
    ============================================================ */
-.stats-spacer  { height: 1.8rem; }
-.section-spacer { height: 1.6rem; }
+.stats-spacer  { height: 1rem; }
+.section-spacer { height: 0.8rem; }
 
 .stat-card {
   position: relative;
