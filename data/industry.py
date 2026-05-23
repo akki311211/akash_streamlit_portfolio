@@ -10,7 +10,7 @@ INDUSTRY = [
     {
         "company": "Tesco",
         "logo": "assets/images/tesco.png",
-        "role": "Engineering Manager / SDE3",
+        "role": "Engineering Leader / SDE3",
         "location": "Bengaluru, India",
         "dates": "Feb 2025 – Present",
         "type": "Full-time",

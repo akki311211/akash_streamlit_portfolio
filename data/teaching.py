@@ -53,7 +53,7 @@ TEACHING = [
         "highlights": [
             "Conducting mock interviews for backend and distributed systems roles",
             "Providing actionable feedback on coding, design, and communication",
-            "Helping candidates prepare for FAANG and top product-based companies",
+            "Helping candidates prepare top product-based companies",
             "Mentoring engineers on resume positioning and interview storytelling",
             "Evaluating problem-solving, architecture thinking, and leadership capabilities",
         ],
