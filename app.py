@@ -1,5 +1,5 @@
 """
-Rohit Jindal — Personal Website
+Akash Kumar — Personal Website
 Run locally:  streamlit run app.py
 Edit content in data/*.py
 """

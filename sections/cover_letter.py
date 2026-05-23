@@ -1,6 +1,6 @@
 """
 Cover Letter Generator — AI-powered, tailored per job description.
-Uses gpt-4o-mini with Rohit's voice and experience as context.
+Uses gpt-4o-mini with Akash's voice and experience as context.
 """
 
 import streamlit as st
@@ -142,7 +142,7 @@ def render_cover_letter() -> None:
     st.markdown('<h2 class="section-heading">✍️ Cover Letter Generator</h2>', unsafe_allow_html=True)
     st.markdown(
         '<p class="section-lede">Paste the job description below and get a tailored, '
-        'AI-generated cover letter in Rohit\'s voice — ready to send.</p>',
+        'AI-generated cover letter in Akash\'s voice — ready to send.</p>',
         unsafe_allow_html=True,
     )
 
@@ -209,7 +209,7 @@ def render_cover_letter() -> None:
             st.download_button(
                 label="⬇️ Download as .txt",
                 data=st.session_state.cover_letter_result,
-                file_name="cover_letter_rohit_jindal.txt",
+                file_name="cover_letter_akash_kumar.txt",
                 mime="text/plain",
                 use_container_width=True,
             )
