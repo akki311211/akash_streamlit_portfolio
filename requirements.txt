@@ -1,9 +1,7 @@
-streamlit>=1.32
+streamlit==1.45.1
 streamlit-option-menu
 plotly
 pandas
 Pillow>=10.0
 groq>=0.5.0
-sentence-transformers>=2.7.0
-chromadb>=0.5.0
 streamlit-audiorec>=0.1.3
