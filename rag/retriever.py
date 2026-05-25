@@ -1,6 +1,7 @@
 def retrieve(query: str, collection, model, top_k: int = 3):
+    q_vec = model.encode([query]).tolist()
     results = collection.query(
-        query_texts=[query],   # chromadb embeds the query itself
+        query_embeddings=q_vec,
         n_results=top_k,
         include=["documents", "metadatas", "distances"],
     )
