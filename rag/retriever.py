@@ -1,5 +1,8 @@
 def retrieve(query: str, collection, model, top_k: int = 3):
-    q_vec = model.encode([query]).tolist()
+    # fastembed returns a generator — convert to list
+    q_vec = list(model.embed([query]))
+    q_vec = [q_vec[0].tolist() if hasattr(q_vec[0], 'tolist') else list(q_vec[0])]
+
     results = collection.query(
         query_embeddings=q_vec,
         n_results=top_k,

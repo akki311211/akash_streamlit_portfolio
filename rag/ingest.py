@@ -1,7 +1,7 @@
 from pathlib import Path
 import streamlit as st
-from sentence_transformers import SentenceTransformer
 import chromadb
+from fastembed import TextEmbedding
 
 DOCS_DIR = Path(__file__).parent.parent / "docs"
 CHUNK_SIZE = 300
@@ -20,7 +20,9 @@ def _chunk_text(text: str) -> list[str]:
 
 @st.cache_resource(show_spinner="Initialising voice assistant...")
 def build_vector_store():
-    model = SentenceTransformer("all-MiniLM-L6-v2")
+    # fastembed: pure onnxruntime, no torch/torchvision needed
+    model = TextEmbedding("BAAI/bge-small-en-v1.5")
+
     client = chromadb.Client()
     collection = client.get_or_create_collection("akash_profile")
 
@@ -37,7 +39,10 @@ def build_vector_store():
     if not all_chunks:
         return collection, model
 
-    embeddings = model.encode(all_chunks).tolist()
+    embeddings = list(model.embed(all_chunks))
+    import numpy as np
+    embeddings = [e.tolist() if hasattr(e, 'tolist') else list(e) for e in embeddings]
+
     collection.add(
         documents=all_chunks,
         embeddings=embeddings,
