@@ -1,7 +1,14 @@
+"""
+RAG Ingestion — uses TF-IDF via scikit-learn.
+Zero external model downloads. Works on Streamlit Cloud out of the box.
+scikit-learn is already a Streamlit dependency.
+"""
+
 from pathlib import Path
 import streamlit as st
-import chromadb
-from fastembed import TextEmbedding
+import pickle
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 DOCS_DIR = Path(__file__).parent.parent / "docs"
 CHUNK_SIZE = 300
@@ -20,34 +27,23 @@ def _chunk_text(text: str) -> list[str]:
 
 @st.cache_resource(show_spinner="Initialising voice assistant...")
 def build_vector_store():
-    # fastembed: pure onnxruntime, no torch/torchvision needed
-    model = TextEmbedding("BAAI/bge-small-en-v1.5")
-
-    client = chromadb.Client()
-    collection = client.get_or_create_collection("akash_profile")
-
-    all_chunks, all_ids, all_meta = [], [], []
+    """
+    Returns (vectorizer, matrix, chunks, metadatas).
+    Uses TF-IDF cosine similarity — no model downloads needed.
+    """
+    all_chunks, all_meta = [], []
 
     for md_file in sorted(DOCS_DIR.glob("*.md")):
         text = md_file.read_text()
         chunks = _chunk_text(text)
-        for i, chunk in enumerate(chunks):
+        for chunk in chunks:
             all_chunks.append(chunk)
-            all_ids.append(f"{md_file.stem}_{i}")
             all_meta.append({"source": md_file.stem})
 
     if not all_chunks:
-        return collection, model
+        return None, None, [], []
 
-    embeddings = list(model.embed(all_chunks))
-    import numpy as np
-    embeddings = [e.tolist() if hasattr(e, 'tolist') else list(e) for e in embeddings]
+    vectorizer = TfidfVectorizer(stop_words="english", ngram_range=(1, 2))
+    matrix = vectorizer.fit_transform(all_chunks)
 
-    collection.add(
-        documents=all_chunks,
-        embeddings=embeddings,
-        ids=all_ids,
-        metadatas=all_meta,
-    )
-
-    return collection, model
+    return vectorizer, matrix, all_chunks, all_meta

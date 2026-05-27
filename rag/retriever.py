@@ -1,15 +1,26 @@
-def retrieve(query: str, collection, model, top_k: int = 3):
-    # fastembed returns a generator — convert to list
-    q_vec = list(model.embed([query]))
-    q_vec = [q_vec[0].tolist() if hasattr(q_vec[0], 'tolist') else list(q_vec[0])]
+"""
+RAG Retriever — TF-IDF cosine similarity search.
+"""
 
-    results = collection.query(
-        query_embeddings=q_vec,
-        n_results=top_k,
-        include=["documents", "metadatas", "distances"],
-    )
-    chunks    = results["documents"][0]
-    sources   = [m["source"] for m in results["metadatas"][0]]
-    distances = results["distances"][0]
-    context   = "\n\n---\n\n".join(chunks)
-    return context, sources, distances
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+
+
+def retrieve(query: str, vectorizer, matrix, chunks: list, metadatas: list, top_k: int = 3):
+    """
+    Returns (context_string, sources_list, scores_list).
+    """
+    if vectorizer is None or matrix is None or not chunks:
+        return "No RAG context available.", [], []
+
+    q_vec = vectorizer.transform([query])
+    scores = cosine_similarity(q_vec, matrix).flatten()
+
+    top_indices = np.argsort(scores)[::-1][:top_k]
+
+    top_chunks  = [chunks[i] for i in top_indices]
+    top_sources = [metadatas[i]["source"] for i in top_indices]
+    top_scores  = [float(scores[i]) for i in top_indices]
+
+    context = "\n\n---\n\n".join(top_chunks)
+    return context, top_sources, top_scores
