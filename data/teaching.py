@@ -6,7 +6,7 @@ EDIT THIS FILE to add or modify teaching entries.
 TEACHING_STATS = [
     {"label": "1:1 Mentorship Sessions", "value": "10+"},
     {"label": "Professionals Guided", "value": "10+"},
-    {"label": "Mock Interviews Conducted", "value": "100+"},
+    {"label": "Interviews Conducted", "value": "100+"},
     {"label": "Years Mentoring", "value": "3+"},
 ]
 
